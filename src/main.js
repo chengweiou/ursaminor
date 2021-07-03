@@ -6,6 +6,8 @@ import { i18n } from './i18n'
 
 import setGlobal from './fn'
 
+import '@/assets/css/global.css'
+
 const app = createApp(App)
 app
   .use(router)

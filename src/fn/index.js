@@ -10,5 +10,5 @@ export default function setGlobal(globalProperties) {
   }
   globalProperties.$wait = wait
   globalProperties.$storage = storage
-  globalProperties.$img = site.xxx
+  globalProperties.$img = site.milkyway
 }

@@ -4,7 +4,7 @@ import paramUtil from './util/paramUtil'
 
 export default class {
   static save(e) {
-    let url = `${site.milkyway}/xxx`
+    let url = `${site.milkyway}/weapon`
     let formData = new FormData()
     formData.append('name', e.name)
     formData.append('phy', e.phy)
@@ -17,14 +17,14 @@ export default class {
     return fetchUtil.run(url, options)
   }
   static delete(e) {
-    let url = `${site.milkyway}/xxx/${e.id}`
+    let url = `${site.milkyway}/weapon/${e.id}`
     let options = {
       method: 'DELETE',
     }
     return fetchUtil.run(url, options)
   }
   static update(e) {
-    let url = `${site.milkyway}/xxx/${e.id}`
+    let url = `${site.milkyway}/weapon/${e.id}`
     let options = {
       method: 'PUT',
       body: e,
@@ -32,21 +32,21 @@ export default class {
     return fetchUtil.run(url, options)
   }
   static findById(e) {
-    let url = `${site.milkyway}/xxx/${e.id}`
+    let url = `${site.milkyway}/weapon/${e.id}`
     let options = {
       method: 'GET',
     }
     return fetchUtil.run(url, options)
   }
   static count(filter) {
-    let url = `${site.milkyway}/xxx/count?${paramUtil.createUrlEncode(filter)}`
+    let url = `${site.milkyway}/weapon/count?${paramUtil.createUrlEncode(filter)}`
     let options = {
       method: 'GET',
     }
     return fetchUtil.run(url, options)
   }
   static find(filter) {
-    let url = `${site.milkyway}/xxx?${paramUtil.createUrlEncode(filter)}`
+    let url = `${site.milkyway}/weapon?${paramUtil.createUrlEncode(filter)}`
     let options = {
       method: 'GET',
     }
