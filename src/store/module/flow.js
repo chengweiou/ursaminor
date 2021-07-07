@@ -32,6 +32,7 @@ const actions = {
       if (!state.map[name]) console.warn(`can not find map: ${curr.name} --> ${name}`)
       let cp = clone(state.map[name])
       cp.desc = cp.desc || name
+      cp.dev = cp.dev || {}
       currList.push({ name: name, ...cp })
     })
     state.step.push(currList)

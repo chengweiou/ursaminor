@@ -1,26 +1,30 @@
 /**
- * todo 与store.state.me 绑定过强，考虑分离
+ * todo 与store.state.me 绑定过强，考虑分离, 现在和store.state.me 绑定越来越强了- -|||
  */
-import wait from '@/fn/util/wait'
-export default store => {
-  Object.keys(store.state).filter(k => store.state[k].db).forEach(async k => {
-    await wait(10)
-    await Db.open()
-    let userId = store.state['me'].user.id ? store.state['me'].user.id : 'guest'
-    let data = await Db.get(`${userId}.${k}`)
-    if (!data) return
-    store.state[k] = data
-  })
+export const order = 2
 
-  store.subscribe((mutation, state) => {
+export default store => {
+  let findByDb = async() => {
+    // 如果是当前cache与db同一个用户，则不操作
+    if (Db.checkAndSetName(store.state['me'].user.id || 'guest')) return
+    await Db.open()
+    Object.keys(store.state).filter(k => store.state[k].db).forEach(async k => {
+      let data = await Db.get(`${k}`)
+      if (!data) return
+      store.state[k] = {...store.state[k], ...data}
+    })
+  }
+  findByDb()
+  store.subscribe(async(mutation, state) => {
+    // 如果切换用户, 则加载新用户数据
+    if (mutation.type == 'me/user') findByDb()
     let module = mutation.type.substring(0, mutation.type.indexOf('/'))
     if (!state[module].db) return
-    let userId = store.state['me'].user.id ? store.state['me'].user.id : 'guest'
     if (mutation.payload === 'REMOVE') {
-      Db.remove(`${userId}.${state[module]}`)
+      Db.remove(module)
       return
     }
-    Db.set(`${userId}.${module}`, state[module])
+    Db.set(module, state[module])
   })
 }
 
@@ -53,11 +57,12 @@ class Db {
   }
 
   static async open() {
-    if (this._db) {
-      return this._db
-    }
-
     return new Promise((resolve, reject) => {
+      if (this._db && this._name == this._db.name) {
+        resolve()
+        return
+      }
+      if (this._db) this._db.close()
       let DBOpenRequest = indexedDB.open(this._name, 1)
       DBOpenRequest.onsuccess = () => {
         this._db = DBOpenRequest.result
@@ -70,18 +75,14 @@ class Db {
       }
     })
   }
-  static get db() {
-    return this._db
-  }
-  static set db(value) {
-    this._db = value
-  }
-  static get name() {
-    return this._name
-  }
-  static set name(value) {
-    this._name = value
+  static checkAndSetName(name) {
+    if (!multiUser) name = 'vuex'
+    if (this._name == name) return true
+    this._name = name
+    return false
   }
 }
-Db.name = 'vuex'
-Db.open()
+
+// todo tip: 按用户区分db， 同一个项目可以有多个用户登录
+// 一般来说没必要，一个用户登录就行
+const multiUser = false
