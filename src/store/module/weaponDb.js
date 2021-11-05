@@ -1,8 +1,9 @@
 import { clone, empty } from '@/fn'
+
 const CLEAN_STATE = {
   db: true,
   cache: false,
-  save: {...empty.weapon(), id: null},
+  save: { },
 }
 
 const state = clone(CLEAN_STATE)

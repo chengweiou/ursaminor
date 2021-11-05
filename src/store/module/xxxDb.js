@@ -3,7 +3,7 @@ import clone from '@/fn/util/clone'
 const CLEAN_STATE = {
   db: true,
   cache: false,
-  save: { img: '' },
+  save: { },
 }
 
 const state = clone(CLEAN_STATE)

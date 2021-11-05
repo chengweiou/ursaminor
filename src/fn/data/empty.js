@@ -2,6 +2,7 @@ import { clone } from '@/fn'
 const map = {}
 export default map
 const detail = {
+  xxx: { id: 0, name: '', phy: 0, bld: 0, createAt: '' },
   weapon: { id: 0, name: '', phy: 0, bld: 0, createAt: '' },
 }
 
