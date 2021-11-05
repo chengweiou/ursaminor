@@ -23,35 +23,34 @@
   </div>
 </template>
 
-<script>
-import loadingIcon from '@/component/loadingIcon'
-export default {
-  components: {
-    loadingIcon,
-  },
-  data() {
-    return {
-      loading: false,
-      form: {
-        username: '',
-        password: '',
-      },
-    }
-  },
-  computed: {
-    show() { return this.$store.state.me.showLogin },
-  },
-  methods: {
-    async login() {
-      this.loading = true
-      await Promise.all([this.$store.dispatch('me/login', this.form), this.$wait(1000)])
-      this.loading = false
-    },
-    off() {
-      this.$store.dispatch('me/offLogin')
-    },
-  },
+<script setup>
+// tip: 导入 component
+import LoadingIcon from '@/component/loadingIcon'
+// tip: 导入 data
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter, useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import { wait, empty, clone, storage } from '@/fn'
+// tip: 定义 各种 use
+const store = useStore(), router = useRouter(), route = useRoute()
+// tip: 定义 页面
+// tip: 定义 不需要关联的
+const cleanForm = ref({username: '', password: ''})
+// tip: 定义 需要关联的
+const form = clone(cleanForm)
+// tip: 定义 computed 计算的
+const show = computed(() => store.state.me.showLogin)
+// tip: 定义 方法
+const login = async() => {
+  loading.value = true
+  await Promise.all([store.dispatch('me/login', this.form), wait(1000)])
+  loading.value = false
 }
+const off = () => {
+  store.dispatch('me/offLogin')
+}
+// tip: 初始化空数据
 </script>
 
 <style scoped>

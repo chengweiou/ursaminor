@@ -1,5 +1,5 @@
 import service from '@/sdk/xxxService'
-import clone from '@/fn/util/clone'
+import { clone } from '@/fn'
 
 const CLEAN_STATE = {
   cache: false,

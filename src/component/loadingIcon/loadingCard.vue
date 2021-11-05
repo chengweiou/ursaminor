@@ -1,10 +1,10 @@
 <template>
-  <flow/>
+<div>加载中</div>
 </template>
 
 <script setup>
 // tip: 导入 component
-import flow from '@/component/flow/index.vue'
+import { ArrowDown as IconArrowDown } from '@element-plus/icons'
 // tip: 导入 data
 // tip: 定义 各种 use
 // tip: 定义 页面
@@ -14,3 +14,10 @@ import flow from '@/component/flow/index.vue'
 // tip: 定义 方法
 // tip: 初始化空数据
 </script>
+
+<style scoped>
+
+</style>
+<style>
+
+</style>

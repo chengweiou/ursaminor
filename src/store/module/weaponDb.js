@@ -1,17 +1,18 @@
+import { clone, empty } from '@/fn'
 const CLEAN_STATE = {
   db: true,
   cache: false,
-  save: { img: '' },
+  save: {...empty.weapon(), id: null},
 }
 
-const state = { ...CLEAN_STATE }
+const state = clone(CLEAN_STATE)
 
 const actions = {
   async save({ commit, dispatch, state, rootState }, payload, config = {}) {
-    commit('save', payload)
+    commit('save', {...clone(CLEAN_STATE).save, ...payload})
   },
   async cleanSave({ commit, dispatch, state, rootState }, payload, config = {}) {
-    commit('save', { ...CLEAN_STATE }.save)
+    commit('save', clone(CLEAN_STATE).save)
   },
 }
 

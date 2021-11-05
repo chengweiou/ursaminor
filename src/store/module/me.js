@@ -1,6 +1,6 @@
 import accountService from '@/sdk/accountService'
 import { router } from '@/router'
-import clone from '@/fn/util/clone'
+import { clone } from '@/fn'
 const CLEAN_STATE = {
   showLogin: false,
   auth: false,
@@ -16,7 +16,7 @@ const actions = {
     commit('showLogin', false)
   },
   async login({ commit, dispatch, state, rootState }, payload, config = {}) {
-    let rest = await accountService.login(payload)
+    let rest = await accountService.all().login(payload)
     if (rest.code !== 'OK') {
       dispatch('failBox/onRest', rest, { root: true })
       return
@@ -25,7 +25,7 @@ const actions = {
     router.replace({ name: 'refresh' })
   },
   async logout({ commit, dispatch, state, rootState }, payload, config = {}) {
-    accountService.logout()
+    accountService.all().logout()
     sessionStorage.clear()
     commit('logout')
   },

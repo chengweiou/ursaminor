@@ -4,9 +4,7 @@ import { router } from './router'
 import { store } from './store'
 import { i18n } from './i18n'
 
-import setGlobal from './fn'
-
-import '@/assets/css/global.css'
+import './assets/css/global.css'
 
 const app = createApp(App)
 app
@@ -14,5 +12,4 @@ app
   .use(store)
   .use(i18n)
 
-setGlobal(app.config.globalProperties)
 app.mount('#app')

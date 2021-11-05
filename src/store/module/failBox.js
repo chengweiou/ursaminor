@@ -1,4 +1,4 @@
-import clone from '@/fn/util/clone'
+import { clone } from '@/fn'
 const CLEAN_STATE = {
   cache: false,
   show: false,
@@ -10,7 +10,7 @@ const state = clone(CLEAN_STATE)
 
 const actions = {
   async onRest({ commit, dispatch, state, rootState }, payload, config = {}) {
-    if (payload.code === 'UNAUTHORIZED') {
+    if (payload.code === 'UNAUTH') {
       dispatch('me/logout', {}, { root: true })
     }
     let name = payload.name || getNameAndContent(payload.code).name

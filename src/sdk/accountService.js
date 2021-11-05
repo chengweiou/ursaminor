@@ -1,13 +1,26 @@
 import fetchUtil from './util/fetchUtil'
 import site from './config/site'
 import storage from './util/storage'
+import paramUtil from './util/paramUtil'
+
 
 export default class accountService {
+  static all() { return All }
+  static me() { return Me }
+  static mg() { return Mg }
+}
+class All {
+  static checkUsername(e) {
+    let url = `${site.andromeda}/account/username/check?${paramUtil.createUrlEncode(e)}`
+    let options = {
+      method: 'GET',
+    }
+    return fetchUtil.run(url, options)
+  }
+
   static login(e) {
-    let url = `${site.milkyway}/login`
-    let formData = new FormData()
-    formData.append('username', e.username)
-    formData.append('password', e.password)
+    let url = `${site.andromeda}/login`
+    let formData = paramUtil.createFormData(e)
     let options = {
       method: 'POST',
       body: formData,
@@ -16,52 +29,78 @@ export default class accountService {
       if (rest.code !== 'OK') return rest
       storage.set('token', rest.data.token)
       storage.set('refreshToken', rest.data.refreshToken)
+      // todo 仅测试
+      storage.set('loginAccount', {person: rest.data.person, extra: 'SUPER'})
+      this.keepLogin()
+      return rest
+    })
+  }
+
+  static keepLogin() {
+    setTimeout(() => this.refreshToken(), refreshTime)
+  }
+  static refreshToken() {
+    let url = `${site.andromeda}/token/refresh`
+    let formData = paramUtil.createFormData({refreshToken: storage.get('refreshToken')})
+    let options = {
+      method: 'POST',
+      body: formData,
+    }
+    return fetchUtil.run(url, options).then(rest => {
+      if (rest.code !== 'OK') return rest
+      storage.set('token', rest.data.token)
       this.keepLogin()
       return rest
     })
   }
 
   static logout() {
-    let url = `${site.milkyway}/logout`
-    let options = {
-      method: 'POST',
-    }
-    return fetchUtil.run(url, options).then(rest => {
-      storage.remove('token')
-      storage.remove('refreshToken')
-      this._refreshTimer = null
-      return rest
-    })
-  }
-  static async keepLogin() {
-    this._refreshTimer = storage.get('refreshToken') ? setTimeout(() => this.refreshToken(), refreshTime) : null
-  }
-
-  static refreshToken() {
-    let url = `${site.milkyway}/token/refresh`
-    let formData = new FormData()
-    formData.append('refreshToken', storage.get('refreshToken'))
+    let url = `${site.andromeda}/logout`
+    let formData = paramUtil.createFormData({refreshToken: storage.get('refreshToken')})
     let options = {
       method: 'POST',
       body: formData,
     }
-    return fetchUtil.run(url, options).then(rest => {
-      if (rest.code !== 'OK') return rest
-      storage.set('token', rest.data.token)
-      storage.set('refreshToken', rest.data.refreshToken)
-      this.keepLogin()
-      return rest
-    })
-  }
-
-  static get refreshTimer() {
-    return this._refreshTimer
-  }
-  static set refreshTimer(value) {
-    this._refreshTimer = value
+    return fetchUtil.run(url, options)
   }
 }
 
-accountService.keepLogin()
+class Me {
+}
 
-const refreshTime = 1000 * 60 * 4
+class Mg {
+  static save(e) {
+    let url = `${site.andromeda}/mg/account`
+    let formData = paramUtil.createFormData(e)
+    let options = {
+      method: 'POST',
+      body: formData,
+    }
+    return fetchUtil.run(url, options)
+  }
+  static remove(e) {
+    let url = `${site.andromeda}/mg/account/${e.id}`
+    let options = {
+      method: 'DELETE',
+    }
+    return fetchUtil.run(url, options)
+  }
+  static updateByPerson(e) {
+    let url = `${site.andromeda}/mg/account/person/${e.person.id}`
+    let options = {
+      method: 'PUT',
+      body: e,
+    }
+    return fetchUtil.run(url, options)
+  }
+  static findByPerson(e) {
+    let url = `${site.andromeda}/mg/account/person/${e.person.id}`
+    let options = {
+      method: 'GET',
+    }
+    return fetchUtil.run(url, options)
+  }
+
+}
+
+const refreshTime = 5 * 60 * 1000

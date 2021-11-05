@@ -1,9 +1,10 @@
+import { clone } from '@/fn'
 const CLEAN_STATE = {
   cache: false,
   show: false,
 }
 
-const state = { ...CLEAN_STATE }
+const state = clone(CLEAN_STATE)
 
 const actions = {
   async on({ commit, dispatch, state, rootState }, payload, config = {}) {
