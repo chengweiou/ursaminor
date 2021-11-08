@@ -1,20 +1,23 @@
 <template>
-  <div class="center df-column" style="margin-left: 10px;">
-    <div class="center" style="margin-bottom: 20px;" >模块列表</div>
-    <div class="df df-wrap" style="width: 100%;">
-      <section v-for="(e, i) in moduleList" :key="i" class="center card" style="margin-right: 10px; margin-bottom: 10px; width: 200px; height: 50px; border-radius: 10px;" @click="go(e)">{{e}}</section>
+  <proj-header>模块列表</proj-header>
+  <div style="margin-bottom: 20px;"></div>
+  <el-main>
+    <div class="df df-wrap">
+      <card-tile-list v-for="(e, i) in moduleList" :key="i" :e="e"/>
     </div>
-  </div>
+  </el-main>
 </template>
 
 <script setup>
 // tip: 导入 component
+import ProjHeader from '@/component/nav/projHeader.vue'
+import CardTileList from '@/component/proj/card/cardTileList.vue'
 // tip: 导入 data
 import { ref, computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { wait, empty, clone, storage } from '@/fn'
+import { wait, emptyFn, clone, storage } from '@/fn'
 // tip: 定义 各种 use
 const store = useStore(), router = useRouter(), route = useRoute()
 // tip: 定义 页面
@@ -31,14 +34,8 @@ const moduleList = computed(() => {
   return result
 })
 // tip: 定义 方法
-const go = (v) => {
-  store.dispatch('flow/init', store.state[v].map)
-  router.push({ name: 'detail' })
-}
 // tip: 初始化空数据
 </script>
 
 <style scoped>
-.card { background: #666; border: 1px solid #888; color: #888; }
-.card:hover { background: #444; border: 1px solid #fff; color: #ddd; }
 </style>

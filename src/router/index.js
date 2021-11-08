@@ -8,14 +8,15 @@ export const router = createRouter({
       components: { full: () => import('./full.vue') },
       children: [
         { name: 'refresh', path: 'refresh', component: () => import('@/view/refresh.vue') },
-        { name: 'home', path: '', component: () => import('@/view/home/index.vue') },
-        { name: 'detail', path: 'detail', component: () => import('@/view/detail/index.vue') },
+        { name: 'login', path: '', component: () => import('@/view/login/index.vue') },
       ],
     },
     {
-      path: '/test',
+      path: '/ursaminor',
       components: { full: () => import('./admin.vue') },
       children: [
+        { name: 'home', path: 'home', component: () => import('@/view/home/index.vue') },
+        { name: 'detail', path: 'detail', component: () => import('@/view/detail/index.vue') },
       ],
     },
   ],

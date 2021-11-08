@@ -1,19 +1,8 @@
 <template>
-  <footer class="center df-column" style="height: 100px;">
+  <div class="center df-column">
     &copy;2021 chengweiou
-  </footer>
+  </div>
 </template>
-
-<script>
-export default {
-  methods: {
-    changeLang(e) {
-      this.$i18n.locale = e
-      this.$storage.set('lang', this.$i18n.locale)
-    },
-  },
-}
-</script>
 
 <style scoped>
 </style>

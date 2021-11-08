@@ -1,10 +1,15 @@
 <template>
-  <flow/>
+  <proj-header>模块列表</proj-header>
+  <div style="margin-bottom: 20px;"></div>
+  <div>
+    <flow/>
+  </div>
 </template>
 
 <script setup>
 // tip: 导入 component
-import flow from '@/component/flow/index.vue'
+import ProjHeader from '@/component/nav/projHeader.vue'
+import flow from './flow/index.vue'
 // tip: 导入 data
 // tip: 定义 各种 use
 // tip: 定义 页面

@@ -1,26 +1,23 @@
+import service from '@/sdk/uploadService'
 import { clone, emptyFn } from '@/fn'
 
 const CLEAN_STATE = {
-  db: true,
-  cache: false,
-  save: { },
 }
 
 const state = clone(CLEAN_STATE)
 
 const actions = {
   async save({ commit, dispatch, state, rootState }, payload, config = {}) {
-    commit('save', {...clone(CLEAN_STATE).save, ...payload})
-  },
-  async cleanSave({ commit, dispatch, state, rootState }, payload, config = {}) {
-    commit('save', clone(CLEAN_STATE).save)
+    let rest = await service.mg().save({ file: payload.img, category: payload.category, w: 1000, single: true })
+    if (rest.code !== 'OK') {
+      dispatch('failBox/onRest', rest, { root: true })
+      return ''
+    }
+    return rest.data
   },
 }
 
 const mutations = {
-  save(state, e) {
-    state.save = e
-  },
 }
 
 export default {

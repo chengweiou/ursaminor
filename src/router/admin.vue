@@ -1,8 +1,18 @@
 <template>
-  <router-view/>
+  <el-container style="min-height: 100%;">
+    <el-aside class="bg-theme6" style="width: auto; "><projAsider /></el-aside>
+    <el-container>
+      <router-view/>
+      <el-footer>
+        <projFooter/>
+      </el-footer>
+    </el-container>
+  </el-container>
 </template>
 <script setup>
 // tip: 导入 component
+import projFooter from '@/component/nav/projFooter.vue'
+import projAsider from '@/component/nav/projAsider.vue'
 // tip: 导入 data
 // tip: 定义 各种 use
 // tip: 定义 页面
