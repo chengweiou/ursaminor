@@ -1,1 +1,56 @@
 message: 'yml-en'
+
+person: User
+account: Account
+
+username: Username
+password: Password
+rePassword: Re-Password
+name: Name
+des: Description
+img: Image
+type: Type
+date: Date
+time: Time
+startTime: Start Time
+endTime: End Time
+
+choose: Please Choose
+total: Total
+save: Save
+delete: Delete
+
+success: Success
+fail: Fail
+
+checkKey: Same data exists
+checkName: Same name exists
+checkUsername: Same username exists
+checkRepassword: re-password not the same
+
+needName: Please enter name
+needNameLen100: name length > 100
+needDes: Please enter description
+needImg: Please select image
+needType: Please select type
+needPhone: Please enter phone
+needPhoneOther: This phone has been used
+needEmail: Please enter email
+needEmailOther: This email has been used
+needUsername: Please enter username
+needUsernameLen3: username length > 3
+needPasswordLen3: password length > 3
+
+codeNetwork: Connection fail
+codeUNAUTH: Unauth to continue
+codePARAM: Input param erorr
+codeFAIL: Operation Fail
+codeEXISTS: DATA exist
+codeNotEXISTS: DATA NOT exist
+
+msgNetwork: Due to dev, server down, page not found... Due to prod, network error
+msgUNAUTH: token needed
+msgPARAM: unchecked param sent to server
+msgFAIL: ''
+msgEXISTS: ''
+msgNotEXISTS: ''

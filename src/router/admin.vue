@@ -2,7 +2,7 @@
   <el-container style="min-height: 100%;">
     <el-aside class="bg-theme6" style="width: auto; "><projAsider /></el-aside>
     <el-container>
-      <router-view/>
+      <div style="flex: 1;"><router-view/></div>
       <el-footer>
         <projFooter/>
       </el-footer>
