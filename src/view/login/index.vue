@@ -1,6 +1,6 @@
 <template>
   <div class="center bg-dark c-white" style="width: 100%; height: 100%;">
-    <el-form style="width: 500px; height: 500px;" size="medium">
+    <el-form style="width: 500px; height: 500px;" size="default">
       <div style="font-size: 42px;">Ursaminor流程规划系统</div>
       <div style="margin-bottom: 10px;">流程规划系统模板</div>
       <div style="height: 58px;"></div>
