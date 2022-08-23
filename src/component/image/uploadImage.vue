@@ -16,12 +16,12 @@
 <script setup>
 // tip: 导入 component
 import CenterImage from '@/component/image/centerImage.vue'
-import { Delete as IconDelete } from '@element-plus/icons'
+import { Delete as IconDelete } from '@element-plus/icons-vue'
 // tip: 导入 data
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 // tip: 定义 各种 use
-const { t, locale } = useI18n({ inheritLocale: true })
+const { t } = useI18n()
 // tip: 定义 页面
 defineProps({
   src: { type: String, default: '' },

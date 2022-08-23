@@ -10,5 +10,4 @@ import empty from './data/empty'
 import storage from '@/sdk/util/storage'
 import site from '@/sdk/config/site'
 
-
 export { date, number, phone, pic, wait, clone, valid, simpleRule, empty, storage, site }
